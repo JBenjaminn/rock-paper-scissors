@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div id="score">
@@ -15,7 +16,6 @@
         <p id="computer-choice">Computer choose: </p>
     </div>
 
-    <p id="result-message"></p>
 
     <div id="selection-section">
         <button id="rock" onClick="displayChoice(this.id)">Rock</button>
@@ -23,13 +23,19 @@
         <button id="scissor" onClick="displayChoice(this.id)">Scissor</button>
     </div>
 
-    <button id="retry" onclick="retry()">Retry</button>
+    <div id="retry-div">
+        <button id="retry" onclick="retry()">Retry</button>    
+    </div>
+    
     
 
     <script>
         function displayChoice(playerSelection) {
             if (playerSelection === undefined) return;
-            if (gameFinished) result_message.textContent = ""
+            if (gameFinished) {
+                score.textContent = "Score:"
+                gameFinished = false;
+            }
             document.querySelector('#user-choice').textContent = `You choose: ${playerSelection}`
             const computerSelection = computerPlay()
             document.querySelector('#computer-choice').textContent = `Computer choose: ${computerSelection}`
@@ -53,8 +59,8 @@
         }
 
         function gameOver() {
-            if (playerScore == 5) result_message.textContent = "You win"
-            else result_message.textContent = "Computer win"
+            if (playerScore == 5) score.textContent = "You win"
+            else score.textContent = "Computer win"
             playerScore = 0
             computerScore = 0
             gameFinished = true
@@ -76,12 +82,11 @@
         let computerScore = 0
         let gameFinished = false
         const result_message = document.querySelector("#result-message")
-        const score = document.querySelector('#score')
+        const score = document.querySelector('#score p')
         
         function computerPlay() {
             return choice[Math.floor(Math.random() * choice.length)]
         }
-        
 
     </script>
 </body>
